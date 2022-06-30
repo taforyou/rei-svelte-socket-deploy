@@ -1,0 +1,36 @@
+<h1>Welcome to SvelteKit 1122334455</h1>
+<script>
+  import { onMount, onDestroy } from "svelte";
+  // import socket from "./socket";
+  import socket from "$lib/socket.io/";
+  import { state } from "$lib/socket.io/store.js";
+  let uri = "";
+	// If autoConnect is false in socket.js, this is a good place to connect.
+  onMount(async () => {
+    uri = socket.io.uri;
+    console.log("uri ",uri);
+    if (socket.connected) {
+      state.setConnected(true);
+      console.log("hello 1");
+    } else {
+      $state.status = `Connecting to ${uri} as ${$state.username}`;
+      socket.connect();
+      console.log("hello 2");
+    }
+
+    socket.on("connect", () => {
+      console.log(socket.id); 
+    });
+    
+  });
+
+  onDestroy(() => {
+    socket.close();
+  });
+ 
+</script>
+
+<pre>
+	<!-- {JSON.stringify(socket.id, null, 2)} -->
+  Hello World
+</pre>

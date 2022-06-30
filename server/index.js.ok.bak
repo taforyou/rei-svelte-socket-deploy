@@ -1,0 +1,48 @@
+const { Server } = require("socket.io")
+
+const io = new Server(3000, {
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"],
+  },
+})
+
+// ไปเอา random มาจาก blockchain
+// Reroll ได้
+
+let correctNumber = ~~(Math.random(0,1) * 100) 
+let listResult = []
+// listResult.push({9:"Too Low"});
+// listResult.push({20:"Too High"});
+// listResult.push({9:"Too Low"});
+
+io.on("connection", (socket) => {
+  console.log(`User Connected: ${socket.id}`)
+  console.log("correctNumber ",correctNumber)
+
+  // นับ Client
+  // console.log(io.engine.clientsCount)
+
+  // Relay messages to other clients
+  if (io.engine.clientsCount <= 2) {
+    socket.onAny((event, ...args) => {
+      if (event === 'play') {
+        console.log(event, ...args)
+      }
+      // socket.broadcast.emit("receive_message", ...args)
+      // ส่งหาทุกคนยกเว้น connected client ที่เรียกมา
+      socket.broadcast.emit("receive_message", "messages")
+
+      // ส่งหาทุกคน
+      io.emit("hello","world")
+    })
+  } else {
+    console.log("exceed player limit")
+  }
+
+  // ส่งหาเฉพาะห้อง !!!
+  // socket.on("send_message", (data) => {
+  //   socket.to(data.room).emit("receive_message", data);
+  // });
+  
+})

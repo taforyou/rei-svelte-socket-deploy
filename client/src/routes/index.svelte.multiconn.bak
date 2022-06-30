@@ -1,0 +1,22 @@
+<h1>Welcome to SvelteKit 1122334455</h1>
+<script>
+	import { onMount } from 'svelte'
+  import { io } from "$lib/socket.io/connect";
+  // import { io } from 'socket.io-client'
+  // let socket = io("http://localhost:8080");
+	// let data = ""
+	onMount(async () => {
+		// data = await fetch('https://api.coindesk.com/v1/bpi/currentprice.json').then(x => x.json())
+    io.emit("message", "hello")
+	})
+
+  //   socket.on("connect", () => {
+  //     console.log(socket.id); 
+  //   });
+ 
+</script>
+
+<pre>
+	<!-- {JSON.stringify(socket.id, null, 2)} -->
+  Hello World
+</pre>
