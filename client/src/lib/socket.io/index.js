@@ -1,4 +1,5 @@
 import io from "socket.io-client";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { config } from "./store.js";
 
 const url = config.url;

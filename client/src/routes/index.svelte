@@ -5,6 +5,7 @@
   let value = "";
   let results: any[] = [];
   onMount(() => {
+    import("bootstrap");
     socket.connect();
     // connect เป็น Methode มาตราฐาน เอา socket id มาได้เลย
     socket.on("connect", () => {
@@ -30,25 +31,38 @@
   }
 </script>
 
-<h1>Welcome to SvelteKit 1122334455</h1>
+<div
+  class="card text-center m-auto p-2 mt-3 mb-5"
+  style="max-width: 512px; width: fit-content;"
+>
+  <div class="card-body d-flex flex-column">
+    <h4 class="card-title">Welcome to SvelteKit 1122334455</h4>
+    <div class="mb-3 mt-2">Hello World</div>
+    <div class="input-group input-group-sm mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="inputGroup-sizing-sm">Input</span>
+      </div>
+      <input type="text" class="form-control" bind:value />
+    </div>
+    <div class="mb-3">
+      Value: {value}
+    </div>
+    <button class="btn btn-primary" on:click={sendMessage}>OK</button>
+  </div>
+</div>
 
-<pre>
-  Hello World
-  <input type="text" class="input input-bordered" bind:value />
-  Value: {value}
-  <button class="border btn" on:click={sendMessage}>OK</button>
-  
-  <ul>
+<div class="mx-auto" style="max-width: 512px;">
+  <ul class="list-group">
     {#each results as result}
       <!-- {result.no}
       {result.result} -->
-      {JSON.stringify(
-        result
-      )}
+      <li class="list-group-item">
+        {JSON.stringify(result)}
+      </li>
       <!-- <li class="flex gap-2 items-center">
         {result.no}
         {result.result}
       </li> -->
     {/each}
   </ul>
-</pre>
+</div>
