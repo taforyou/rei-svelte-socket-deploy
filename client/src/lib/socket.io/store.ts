@@ -25,7 +25,7 @@ export const state = {
   set,
   update,
 
-  setConnected(connected) {
+  setConnected(connected: boolean) {
     if (connected) {
       update((data) => ({
         ...data,
