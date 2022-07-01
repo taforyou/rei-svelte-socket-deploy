@@ -1,7 +1,7 @@
 import 'dotenv/config'
 import { Server } from 'socket.io'
 
-const NODE_PORT = Number(process.env.NODE_PORT) || 3000
+const NODE_PORT = Number(process.env.NODE_PORT || 3000)
 
 const io = new Server(NODE_PORT, {
   cors: {
